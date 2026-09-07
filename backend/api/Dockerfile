@@ -1,4 +1,4 @@
-FROM docker.io/library/python:3.14.4-slim-trixie AS build
+FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS build
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
@@ -10,16 +10,13 @@ RUN apt-get update && apt-get upgrade -y && \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
+COPY pyproject.toml uv.lock ./
+
+ENV UV_PROJECT_ENVIRONMENT=/venv
+RUN uv sync --locked --no-dev --no-install-project
+
 COPY . .
-
-RUN pip install --upgrade pip build && \
-    python -m build
-
-# Create a virtual environment and install the built wheel
-RUN python -m venv /venv
-ENV PATH=/venv/bin:$PATH
-RUN pip install --upgrade pip && \
-    pip install dist/*.whl
+RUN uv sync --locked --no-dev --no-editable
 
 FROM docker.io/library/python:3.14.4-slim-trixie AS runtime
 

@@ -1,23 +1,35 @@
+[project]
+name = "weiss-epicsws"
+version = "2.0.0"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14"
+]
+description = "WEISS EPICS WebSocket bridge"
+requires-python = ">=3.12"
+dependencies = [
+    "p4p==4.2.2",
+    "pyepics==3.5.10",
+    "websockets==17.1",
+]
+
+[project.urls]
+GitHub = "https://github.com/weiss-controls/weiss"
+
 [tool.ruff]
 src = ["."]
 line-length = 120
 
-[tool.ruff.lint]
-select = [
-    "C4",
-    "E",
-    "F",
-    "W",
-    "I001",
+lint.select = [
+    "C4",   # flake8-comprehensions
+    "E",    # pycodestyle errors
+    "F",    # pyflakes rules
+    "W",    # pycodestyle warnings
+    "I001", # isort
 ]
 
-[tool.mypy]
-ignore_missing_imports = true
-
-[tool.pytest.ini_options]
-addopts = """
-    --tb=native -vv
-    """
-
-[tool.coverage.run]
-data_file = "/tmp/weiss-epicsws.coverage"
+[dependency-groups]
+dev = [
+    "ruff>=0.16.6",
+]

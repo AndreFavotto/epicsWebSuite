@@ -32,7 +32,7 @@ _pv_metadata: Dict[str, dict] = {}
 DEFAULT_PROTOCOL = os.getenv("EPICS_DEFAULT_PROTOCOL", PVA_PROVIDER_KEY).lower()
 
 # Max rate (Hz) at which updates for a single PV are forwarded to clients; 0 disables throttling.
-MAX_UPDATE_RATE_HZ = float(os.getenv("EPICS_MAX_UPDATE_RATE_HZ", "30"))
+MAX_UPDATE_RATE_HZ = float(os.getenv("EPICS_MAX_UPDATE_RATE_HZ", 30))
 MIN_UPDATE_INTERVAL = 1.0 / MAX_UPDATE_RATE_HZ if MAX_UPDATE_RATE_HZ > 0 else 0.0
 
 # Per-PV throttle bookkeeping

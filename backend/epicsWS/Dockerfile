@@ -1,20 +1,33 @@
-FROM mambaorg/micromamba:2.9-alpine3.21
+FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS build
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
+COPY pyproject.toml uv.lock ./
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER . .
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN micromamba install -y -n base -f environment.yml && \
-    micromamba clean -afy
+ENV UV_PROJECT_ENVIRONMENT=/venv
+RUN uv sync --locked --no-dev --no-install-project
 
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
+COPY . .
+
+FROM docker.io/library/python:3.14.4-slim-trixie AS runtime
+
+WORKDIR /app
+COPY --from=build /venv/ /venv/
+COPY --from=build /app/ /app/
+
+ENV PATH=/venv/bin:$PATH
 
 ENV EPICS_DEFAULT_PROTOCOL=pva
 ENV EPICS_CA_ADDR_LIST=localhost
 ENV EPICS_PVA_ADDR_LIST=localhost
 ENV EPICS_MAX_UPDATE_RATE_HZ=30
 
-ENV PYTHONUNBUFFERED=1
 EXPOSE 8080
 
 CMD ["python", "epicsWS.py"]

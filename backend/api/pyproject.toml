@@ -23,11 +23,6 @@ dependencies = [
 ]
 requires-python = ">=3.12"
 
-[project.optional-dependencies]
-dev = [
-    "ruff"
-]
-
 [project.urls]
 GitHub = "https://github.com/weiss-controls/weiss"
 

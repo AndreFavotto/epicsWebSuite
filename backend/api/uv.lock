@@ -998,11 +998,6 @@ dependencies = [
     { name = "uvicorn", extra = ["standard"] },
 ]
 
-[package.optional-dependencies]
-dev = [
-    { name = "ruff" },
-]
-
 [package.dev-dependencies]
 dev = [
     { name = "ruff" },
@@ -1016,10 +1011,8 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "msal", specifier = ">=1.38.0" },
     { name = "python-multipart", specifier = ">=0.0.32" },
-    { name = "ruff", marker = "extra == 'dev'" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.52.4" },
 ]
-provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.16.6" }]

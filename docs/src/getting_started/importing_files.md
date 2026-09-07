@@ -7,8 +7,12 @@ to a web-native application, redrawing everything in another tool can be very ti
 For that reason, WEISS provides methods to facilitate the import of existing displays from other
 tools, reducing the manual effort required to recreate them in a web-native environment.
 
-For now, WEISS supports importing displays from CS-Studio/Phoebus only, and other tools will be
-considered in future updates.
+:::{warning}  
+An imported display should be treated as a starting point to save time and effort. Always test it
+with the intended IOC and review the complete display before making it available to operators.  
+For now, WEISS supports importing displays from CS-Studio/Phoebus only. Other tools will be
+considered in future updates.  
+:::
 
 ## From CS-Studio
 
@@ -30,12 +34,10 @@ need to be uploaded or imported.
 
 With the WEISS app running, login as a "Developer" and create a new file with the desired name.
 Click **Import** in the application header, select **From CSS/Phoebus**, and choose the `.bob` file
-from your computer.
+from your computer. Before the import starts, WEISS will show a warning that the result may require
+validation. Confirm the message to continue. The converted widgets will be added to the current OPI.
 
 ![Import a CS-Studio display](../_static/import-cs-studio.gif)
-
-Before the import starts, WEISS will show a warning that the result may require validation. Confirm
-the message to continue. The converted widgets will be added to the current OPI.
 
 If the display uses pictures, upload the corresponding `.svg`, `.png`, `.jpg`, or `.jpeg` files to
 the same repository. Make sure the paths used by the imported `Image` widgets match the paths of the
@@ -104,37 +106,13 @@ The current widget support is:
 | `polygon`                             | —                                   | ❌ not planned                          |
 | `webbrowser`                          | —                                   | ❌ not planned                          |
 
-The current feature support, to be extended, is:
+Rules and scripts are currently **not implemented** for the imported displays and need to be added
+manually using the WEISS interface.
 
-| Feature                                               | Status                              |
-| ----------------------------------------------------- | ----------------------------------- |
-| Position & size                                       | ✅                                  |
-| Colors (background, foreground, border, on/off/lines) | ✅                                  |
-| Font (family, size, bold, italic)                     | ✅                                  |
-| Text alignment (horizontal & vertical)                | ✅                                  |
-| Visibility                                            | ✅                                  |
-| Tooltip                                               | ✅                                  |
-| Transparent background                                | ✅                                  |
-| Display macros                                        | ✅                                  |
-| Grid settings (color, visibility, step)               | ✅                                  |
-| Embedded display path (`.bob` → `.opi.json`)          | ✅                                  |
-| Multi-state LED states (value, color, label)          | ✅                                  |
-| Actions                                               | ✅ (write PV and open display only) |
-| Plot PV names & line colors                           | ✅                                  |
-| Rules                                                 | 🔶 not implemented                  |
-| Points (polyline / line drawing)                      | 🔶 not implemented                  |
-| Scripts                                               | ❌ not planned                      |
-| Points (polygon geometry)                             | ❌ not planned                      |
-
-### Test and save
+### Test, commit, and deploy
 
 After checking PV names and macros, switch to **Runtime** mode and verify that the imported widgets
-connect to their PVs and behave as expected.
+connect to their PVs and the display behaves as expected.
 
-When the display is ready, save it in the repository. You can then commit and deploy it using the
-workflow described in the [first web OPI tutorial](tutorial.md).
-
-:::{warning}  
-An imported display should be treated as a starting point. Always test it with the intended IOC and
-review the complete display before making it available to operators.  
-:::
+When the OPI is ready, you can then commit and deploy it using the workflow described in the
+[first web OPI tutorial](tutorial.md).

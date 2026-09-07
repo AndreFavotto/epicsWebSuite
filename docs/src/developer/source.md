@@ -15,9 +15,11 @@ This launches three services (plus an internal `storage` volume container):
 - `weiss-api-dev`: the backend API for file and git interaction.
 - `weiss-dev`: The WEISS front-end application. It should be accessible in `http://localhost:5173`.
 
-> For the API, the service must be restarted for endpoint changes to take effect. `DEV_MODE` is
-> already set to `true` in `docker-compose-dev.yml`, so the API automatically allows requests from
-> `http://localhost:5173` - no extra configuration is needed.
+:::{tip}  
+For the API, the service must be restarted for endpoint changes to take effect. `DEV_MODE` is
+already set to `true` in `docker-compose-dev.yml`, so the API automatically allows requests from
+`http://localhost:5173` - no extra configuration is needed.  
+:::
 
 For development, it is also recommended to launch the demonstration IOCs, to have some live PVs to
 test with. All IOCs and instructions can be found in the

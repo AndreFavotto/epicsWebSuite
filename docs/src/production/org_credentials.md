@@ -4,7 +4,7 @@ WEISS' backend expects a standard OpenID Connect issuer by default. The usual pr
 register WEISS as an OIDC client in your identity provider, and let that provider handle the
 organization credentials.
 
-::{hint}  
+:::{hint}  
 Your identity provider is likely managed by your IT department, and may be Microsoft Entra ID, ADFS,
 Keycloak, or another SSO gateway. For more information, see
 [What is an Identity Provider?](https://www.openiam.com/customer-identity-concepts/what-is-an-identity-provider).  
@@ -18,13 +18,11 @@ This page covers two common deployment patterns:
 In both cases, the WEISS-side configuration is the same: set the OIDC client values in the `.env`
 file and register the callback URL in the identity provider.
 
----
-
 ## Common WEISS configuration
 
 The backend uses these variables for the non-demo login provider:
 
-```dotenv
+```sh
 AUTH_CLIENT_ID="your-client-id-here"
 AUTH_CLIENT_SECRET="your-client-secret-here"
 AUTH_ISSUER="https://your-issuer.example.com/realms/your-realm"
@@ -34,13 +32,13 @@ AUTH_IDENTITY_PROVIDER="oauth"
 The redirect URL (after a successful authentication) is derived from the application URL, and always
 uses the frontend callback path:
 
-```text
+```
 https://<your-app-host>/auth/callback
 ```
 
 For local development, that is typically:
 
-```text
+```
 http://localhost:5173/auth/callback
 ```
 
@@ -87,13 +85,13 @@ In that model:
 
 For a Keycloak deployment, the issuer usually looks like:
 
-```text
+```
 https://keycloak.example.com/realms/operations
 ```
 
 and the redirect URI registered on the client is:
 
-```text
+```
 https://weiss.example.com/auth/callback
 ```
 
@@ -146,9 +144,8 @@ https://weiss.example.com/auth/callback
 and the issuer will be the tenant issuer URL for that directory.
 
 :::{note} If the organization already uses Microsoft identity, you usually do not need a custom
-WEISS provider. You only need a provider change if the upstream system does not expose OIDC. :::
-
----
+WEISS provider. You only need a provider change if the upstream system does not expose OIDC.  
+:::
 
 ## Choosing the right setup
 

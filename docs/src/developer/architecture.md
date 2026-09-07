@@ -106,7 +106,8 @@ through one of the above.
   CRUD, file read/write, Git operations).
 
   :::{warning} Do not edit this folder manually. Regenerate it with `pnpm exec openapi-ts` after any
-  backend endpoint changes (API must be running on `:8000`). :::
+  backend endpoint changes (API must be running on `:8000`).  
+  :::
 
 - **`AuthService`** - singleton (`authService`) that drives the full OAuth login lifecycle. Handles
   provider redirect, code exchange, session restoration on page load (`restoreSession()`), and
@@ -116,7 +117,8 @@ through one of the above.
   app to open a modal; it returns a `Promise<boolean>` resolved when the user confirms or cancels.
 
   :::{note} `<DialogService />` must be mounted once in the component tree (currently in `App.tsx`)
-  to register the underlying handler. The same applies to `<NotificationService />` below. :::
+  to register the underlying handler. The same applies to `<NotificationService />` below.  
+  :::
 
 - **`Notifications`** - fire-and-forget toast notifications. Call `notifyUser(message, severity?)`
   to display a 4-second auto-dismiss snackbar. Accepted severity values: `"success"`, `"info"`,
@@ -160,11 +162,7 @@ The FastAPI back-end exposes three route groups:
 Authentication is based on OAuth 2.0 / OpenID Connect and is available through the `/auth` route
 group. The backend loads the configured non-demo provider from `api.auth.providers` using
 `AUTH_IDENTITY_PROVIDER` (default `oauth`) and also supports a dedicated `demo` provider when
-`DEMO_MODE=true`.
-
-:::{note}  
-Auth workflow details to be provided.  
-:::
+`DEMO_MODE=true`. See [Organization credentials](../production/org_credentials.md) for more details.
 
 ---
 

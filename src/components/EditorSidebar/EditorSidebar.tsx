@@ -88,17 +88,24 @@ const EditorSidebar: React.FC = () => {
 
   const paperRef = useRef<HTMLDivElement | null>(null);
   const widthRef = useRef(drawerWidth);
+  const preRuntimeDrawerState = useRef<{ pinned: boolean; open: boolean } | null>(null);
 
   useEffect(() => {
     widthRef.current = drawerWidth;
   }, [drawerWidth]);
 
   useEffect(() => {
-    // Always unpin and close the sidebar when in runtime mode
     if (!inEditMode) {
+      // Save current state so it can be restored when returning to edit mode
+      preRuntimeDrawerState.current = { pinned, open };
       setPinned(false);
       setOpen(false);
+    } else if (preRuntimeDrawerState.current) {
+      setPinned(preRuntimeDrawerState.current.pinned);
+      setOpen(preRuntimeDrawerState.current.open);
+      preRuntimeDrawerState.current = null;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inEditMode]);
 
   useEffect(() => {
